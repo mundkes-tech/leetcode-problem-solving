@@ -1,22 +1,23 @@
 class Solution {
     public int[] relativeSortArray(int[] arr1, int[] arr2) {
         ArrayList<Integer> list = new ArrayList<>();
-        int[] visited = new int[arr1.length];
+        int[] freq = new int[1001];
 
-        Arrays.sort(arr1);
+        for(int i=0;i<arr1.length;i++){
+            freq[arr1[i]]++;
+        }
 
         for(int i=0;i<arr2.length;i++){
-            for(int j=0;j<arr1.length;j++){
-                if(arr2[i] == arr1[j]){
-                    list.add(arr1[j]);
-                    visited[j] = 1;
-                }
+            while(freq[arr2[i]]!=0){
+                list.add(arr2[i]);
+                freq[arr2[i]]--;
             }
         }
 
-        for(int i=0;i<visited.length;i++){
-            if(visited[i]==0){
-                list.add(arr1[i]);
+        for(int i=0;i<freq.length;i++){
+            while(freq[i]!=0){
+                list.add(i);
+                freq[i]--;
             }
         }
 
